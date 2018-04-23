@@ -1,0 +1,16 @@
+<html> 
+<body>
+{{warning}}
+<form action="{% url 'index' %}" method="post">
+{% csrf_token %}
+  <label for="title">Title</label><br />
+  <input type="text" name="title" id="title" />
+  <br><br>
+  <input type="submit" value="Submit" />
+</form>
+ {% for item  in list %}
+
+{{item}} 
+{%endfor%}
+</body>
+</html>
