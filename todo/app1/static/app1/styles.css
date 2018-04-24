@@ -99,3 +99,8 @@ body{
     box-shadow: none;
     border: 1px solid transparent;
 }
+
+.completed 
+{
+    text-decoration:line-through;
+}

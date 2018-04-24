@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.conf import settings
 from .models import Todo
+from django.http import HttpResponse
 
 def index(request):
 	user_list=''
@@ -39,4 +40,4 @@ def update(request):
 		row = Todo.objects.get(id=request.POST['id'])
 		row.complete=bool(request.POST['val'])
 		row.save()
-	
+	return HttpResponse('')

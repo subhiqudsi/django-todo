@@ -1,3 +1,4 @@
+
 <html> 
 
 	<head>
@@ -27,8 +28,8 @@
 			{% if list %}
 			<ul class="todo-list">
 				{% for item  in list %}
-					<li>
-						<input type="checkbox" value="{{item.id}}" name=""  id="" {% if item.complete is 'True' %} checked {%endif%}>
+					<li {% if item.complete is True %} class="completed"{%endif%}>
+						<input type="checkbox" value="{{item.id}}" name=""  id="" {% if item.complete is True %} checked {%endif%}>
 						<span class="text">{{item}}</span>
 						<div class="tools">
 						
@@ -48,8 +49,12 @@
 			<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
 
 			<script>
+			
 			$('input:checkbox').change(function () {
-            var chkbx= $(this);
+            console.log($(this));
+			//var parent=$(this).closest('li'); 
+			var chkbx= $(this);
+			var parent=chkbx.parent();
 			var chbxid = $(this).val();
             var check = $(this).attr('checked');
 			console.log();
@@ -62,10 +67,11 @@
 			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
 			},
 			success:function(){
-			if (Boolean(chkbx.is(':checked'))			{
-			chkbx.addClass('completed')
+			if (chkbx.is(':checked'))			
+			{
+			parent.addClass('completed')
 			}
-			else { chkbx.removeClass('complete');}
+			else { parent.removeClass('completed');}
 			}
 			})
         });
