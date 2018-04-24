@@ -1,37 +1,42 @@
 from django.shortcuts import render,redirect
-
-
 from django.conf import settings
 from .models import Todo
 
 def index(request):
-	# Its not secure to do it this way, but within the specified timeframe its impossible to learn Django REST + backbone.js
-	test=""
+	user_list=''
+	warning=''	
+	user_session_id=''
 	request.session.set_test_cookie()
+	
 	if request.COOKIES.get('sessionid', None):
-		test =request.COOKIES[settings.SESSION_COOKIE_NAME]
+		user_session_id =request.COOKIES[settings.SESSION_COOKIE_NAME]
 	
-	warning=''
-	
-	
-	
-	if not test:
-			warning='allow cookies'
+
+	if(request.method == 'POST'):
+		if user_session_id:
+			
+			text = request.POST['title']
+			sess = user_session_id
+			todo = Todo(text=text, sess=sess)
+			todo.save()
+			
+			return redirect('index')
+
 		
-	if(request.method == 'POST') and test:
-		text = request.POST['title']
-		sess = test
-
-		todo = Todo(text=text, sess=sess)
-		todo.save()
-
-		return redirect('index')
 	
 	
-	if test:
-		mylist= Todo.objects.filter(sess=test)
+	if user_session_id:
+		user_list= Todo.objects.filter(sess=user_session_id)
 	else:
-		mylist=""
+		warning='allow cookies'
 	
-	context={'list':mylist,'warning':warning}
+	context={'list':user_list,'warning':warning}
 	return render(request,'app1/index.html', context)
+	
+	
+def update(request):
+	if (request.method=='POST') :
+		row = Todo.objects.get(id=request.POST['id'])
+		row.complete=bool(request.POST['val'])
+		row.save()
+	
