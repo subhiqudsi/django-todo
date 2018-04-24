@@ -104,3 +104,11 @@ body{
 {
     text-decoration:line-through;
 }
+
+input#title {
+    width: 100%;
+}
+
+input.btn {
+    margin-top: 19px;
+}

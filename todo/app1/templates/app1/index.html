@@ -45,37 +45,7 @@
 			<div class ="col-md-4"></div>
 			</div>
 			</body>
-			#Need organizing
 			<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+			<script type="text/javascript"  src=  {% static "app1/js/main.js" %}  ></script>
 
-			<script>
-			
-			$('input:checkbox').change(function () {
-            console.log($(this));
-			//var parent=$(this).closest('li'); 
-			var chkbx= $(this);
-			var parent=chkbx.parent();
-			var chbxid = $(this).val();
-            var check = $(this).attr('checked');
-			console.log();
-            $.ajax({ 
-			type:'POST',
-			url:'/update',
-			data:{
-			id:chbxid,
-			val:check,
-			csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
-			},
-			success:function(){
-			if (chkbx.is(':checked'))			
-			{
-			parent.addClass('completed')
-			}
-			else { parent.removeClass('completed');}
-			}
-			})
-        });
-			
- 
-			</script>
 </html>

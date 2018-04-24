@@ -41,3 +41,10 @@ def update(request):
 		row.complete=bool(request.POST['val'])
 		row.save()
 	return HttpResponse('')
+
+	
+def delrow(request):
+	if (request.method=='POST') :
+		row = Todo.objects.get(id=request.POST['id'])
+		row.delete()
+	return HttpResponse('')
